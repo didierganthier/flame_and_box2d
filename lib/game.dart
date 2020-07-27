@@ -4,6 +4,13 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
 class MazeBallGame extends Game{
+  Paint paint;
+  //Size of the screen from the resize event
+  Size screenSize;
+  //Rectangle based on the size, easy to use
+  Rect _screenRect;
+  final int scale = 5;
+
   //Needed for Box2D
   static const int WORLD_POOL_SIZE = 100;
   static const int WORLD_POOL_CONTAINER_SIZE = 10;
@@ -26,12 +33,25 @@ class MazeBallGame extends Game{
   }
 
   void resize(Size size){
+    paint = Paint();
+    paint.color = Color(0xffffffff);
+    //Store size and related rectangle
+    screenSize = size;
+    _screenRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     super.resize(size);
   }
 
   @override
   void render(Canvas canvas) {
-    // TODO: implement render
+    //If no size information -> leave
+    if(screenSize == null){
+      return;
+    }
+    canvas.save();
+    canvas.scale(screenSize.width / scale);
+    canvas.translate(_screenRect.width/2, _screenRect.height/2);
+    canvas.drawCircle(Offset(0, 0), .1, paint);
+    canvas.restore();
   }
 
   @override
