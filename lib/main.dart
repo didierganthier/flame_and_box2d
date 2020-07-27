@@ -1,11 +1,12 @@
 import 'package:flame/util.dart';
+import 'package:flameandbox2d/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() async{
   await setupFlame();
-//  var game = new MazeBallGame();
-//  runApp(game.widget);
+  var game = new MazeBallGame();
+  runApp(game.widget);
 }
 
 Future setupFlame () async {
